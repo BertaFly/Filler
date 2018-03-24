@@ -5,47 +5,42 @@
 #                                                     +:+ +:+         +:+      #
 #    By: inovykov <inovykov@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2018/01/15 13:16:28 by inovykov          #+#    #+#              #
-#    Updated: 2018/03/06 21:14:12 by inovykov         ###   ########.fr        #
+#    Created: 2018/02/16 12:17:53 by abodnar           #+#    #+#              #
+#    Updated: 2018/03/21 16:13:06 by inovykov         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = inovykov.filler.
+NAME = inovykov.filler
 
-FLAGS = -Wall -Werror -Wextra
+LIB = libft.a
 
-DIR_S = src
+SRCS = test.c
 
-HEADER = includes
+OBJECTS = $(SRCS:.c=.o)
 
-SOURCES = 
-
-SRCS = $(addprefix $(DIR_S)/,$(SOURCES))
-
-OBJS = $(SOURCES:.c=.o)
-
-.PHONY: all clean fclean re
+FLAGS = -Wall -Wextra -Werror
 
 all: $(NAME)
 
-$(NAME): $(OBJS)
-	@make -C libft
-	@cp ./libft/libft.a ./$(NAME)
-	@ar rc $(NAME) $(OBJS)
-	@ranlib $(NAME)
-	@echo "executable file is ready"
+%.o : %.c
+	@gcc -I. -I./libft $(FLAGS) -c $< -o $@
 
-%.o : $(DIR_S)/%.c
-	@gcc $(FLAGS) -I $(HEADER) -o $@ -c $<
+$(NAME): $(LIB) $(OBJECTS) ./includes/*.h
+	@gcc -o $@ -I. -I./libft $(OBJECTS) $(LIB)
+	@echo "READY TO PLAY"
+	
+$(LIB):
+	@make -C ./libft/
+	@cp ./libft/libft.a .
 
 clean:
-	@make clean -C libft/
-	@/bin/rm -f $(OBJS)
-	@echo "objects were removed"
-
+	@make fclean -C ./libft
+	@rm -f *.o
+	@rm -f libft.a
+	
 fclean: clean
-	@make fclean -C libft/
-	@/bin/rm -f $(NAME)
-	@echo "executable file was removed"
+	@rm -f $(NAME)
 
-re: fclean all
+re: clean all
+
+.PHONY: all clean fclean re

@@ -1,34 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   filler.h                                           :+:      :+:    :+:   */
+/*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: inovykov <inovykov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/03/19 14:08:57 by inovykov          #+#    #+#             */
-/*   Updated: 2018/03/23 11:49:27 by inovykov         ###   ########.fr       */
+/*   Created: 2017/12/13 15:07:00 by inovykov          #+#    #+#             */
+/*   Updated: 2018/03/22 14:26:55 by inovykov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FILLER_H
+#ifndef GET_NEXT_LINE_H
 
-# define FILLER_H
+# define GET_NEXT_LINE_H
+# define BUFF_SIZE 4
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <fcntl.h>
+# include <fcntl.h>
+# include <stdlib.h>
+# include "libft.h"
 
-typedef struct	s_param
-{
-	int		my_tern;
-	int		map_row;
-	int		map_col;
-	int		piece_row;
-	int		piece_col;
-	int		*pic_x;
-	int		*pic_y;
-	int		stars;
-}				t_param;
+int	get_next_line(const int fd, char **line);
 
 #endif

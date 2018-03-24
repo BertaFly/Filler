@@ -6,7 +6,7 @@
 #    By: inovykov <inovykov@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/10/25 15:56:20 by inovykov          #+#    #+#              #
-#    Updated: 2018/02/07 11:49:14 by inovykov         ###   ########.fr        #
+#    Updated: 2018/03/21 14:17:13 by inovykov         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -83,7 +83,7 @@ SOURCES =	ft_memset.c \
 		ft_list_size.c \
 		ft_factorial.c \
 		ft_is_space.c \
-		ft_itoa_un.c ft_itoa_base.c
+		ft_itoa_un.c ft_itoa_base.c get_next_line.c
 
 SRCS = $(addprefix $(DIR_S)/,$(SOURCES))
 
@@ -93,7 +93,7 @@ OBJS = $(addprefix $(DIR_O)/,$(SOURCES:.c=.o))
 
 all: obj $(NAME)
 
-$(NAME): $(OBJS)
+$(NAME): $(OBJS) includes/libft.h
 	@ar rc $(NAME) $(OBJS)
 	@ranlib $(NAME)
 	@echo "libft.a is ready"
@@ -102,7 +102,7 @@ obj:
 	@mkdir -p obj
 	@echo "Creating libft object files"
 
-$(DIR_O)/%.o : $(DIR_S)/%.c
+$(DIR_O)/%.o : $(DIR_S)/%.c includes/libft.h
 	@gcc $(FLAGS) -I $(HEADER) -o $@ -c $<
 
 clean:
